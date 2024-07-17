@@ -18,6 +18,8 @@ class Router
 
     private function createRoute(array $methods, string $uri, array $action): Route
     {
+        $uri = rtrim($uri, '/') ?: '/';
+
         return new Route($methods, $uri, $action);
     }
 

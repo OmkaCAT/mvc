@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Core\Exceptions\HttpException;
 use App\Core\Routing\Router;
 
 class Application
@@ -131,8 +132,18 @@ class Application
             $router = $this->resolve('router');
             $response = $router->resolve($request);
         } catch (\Throwable $exception) {
-            // todo render exception
-            throw $exception;
+            $response = $this->handleException($exception);
+        }
+
+        return $response;
+    }
+
+    private function handleException(\Throwable $exception): Response
+    {
+        if ($exception instanceof HttpException) {
+            $response = new Response($exception->getMessage(), $exception->getStatusCode(), $exception->getHeaders());
+        } else {
+            $response = new Response($exception->getMessage(), 500, []);
         }
 
         return $response;

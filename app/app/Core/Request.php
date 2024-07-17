@@ -17,11 +17,11 @@ class Request
         'TRACE'
     ];
 
-    private ParameterBag $query;
-    private ParameterBag $request;
-    private ParameterBag $cookies;
-    private ParameterBag $files;
-    private ParameterBag $server;
+    public ParameterBag $query;
+    public ParameterBag $request;
+    public ParameterBag $cookies;
+    public ParameterBag $files;
+    public ParameterBag $server;
 
     protected ?string $method = null;
 

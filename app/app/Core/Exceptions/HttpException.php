@@ -19,4 +19,19 @@ class HttpException extends \RuntimeException
 
         parent::__construct($message, $code, $previous);
     }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    public function setHeaders(array $headers): void
+    {
+        $this->headers = $headers;
+    }
 }

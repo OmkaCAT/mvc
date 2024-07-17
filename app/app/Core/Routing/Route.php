@@ -30,6 +30,8 @@ class Route
 
     public function matches(Request $request): bool
     {
+        // todo parameters search {param}
+
         $validators = [
             new UriValidator,
             new MethodValidator,
