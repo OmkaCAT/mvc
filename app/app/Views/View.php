@@ -40,7 +40,7 @@ class View
             $__path = $path;
             $__data = $data;
 
-            return (static function () use ($__path, $__data) {
+            (static function () use ($__path, $__data) {
                 extract($__data, EXTR_SKIP);
 
                 return require $__path;
@@ -48,6 +48,8 @@ class View
         } catch (\Throwable $e) {
             $this->handleViewException($e, $obLevel);
         }
+
+        return ltrim(ob_get_clean());
     }
 
     private function handleViewException(\Throwable $e, $obLevel)
