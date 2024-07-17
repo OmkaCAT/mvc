@@ -24,7 +24,7 @@ class PostController
     ];
 
 
-    public function index(): string
+    public function index(Request $request): string
     {
         $posts = [];
         foreach ($this->posts as $post) {
@@ -39,10 +39,9 @@ class PostController
         ]);
     }
 
-    public function show(Request $request): string
+    public function show(string $id, Request $request): string
     {
-        // todo bind id
-        $id = (int)$request->query->get('id');
+        $id = (int)$id;
 
         $model = null;
         foreach ($this->posts as $post) {
@@ -63,10 +62,9 @@ class PostController
         ]);
     }
 
-    public function update(Request $request): string
+    public function update(string $id, Request $request): string
     {
-        // todo bind id
-        $id = (int)$request->query->get('id');
+        $id = (int)$id;
 
         $model = null;
         foreach ($this->posts as $post) {

@@ -10,13 +10,13 @@ $router->addRoute(
 
 $router->addRoute(
     ['GET'],
-    '/post/1',
+    '/post/{id}',
     [\App\Controllers\PostController::class, 'show']
 );
 
 $router->addRoute(
     ['POST'],
-    '/post/1',
+    '/post/{id}',
     [\App\Controllers\PostController::class, 'update']
 );
 

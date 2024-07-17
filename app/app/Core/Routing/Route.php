@@ -49,6 +49,18 @@ class Route
     public function run(Request $request): mixed
     {
         try {
+            $path = $this->getUri();
+            $pattern = preg_replace('/\{([a-zA-Z0-9_]+)}/', '(?P<\1>[a-zA-Z0-9_]+)', $path);
+            $params = [];
+
+            if (preg_match('#^' . $pattern . '$#', $request->getPath(), $matches)) {
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        $params[$key] = $match;
+                    }
+                }
+            }
+
             $controllerClass = $this->action[0] ?? '';
 
             if (!class_exists($controllerClass)) {
@@ -66,6 +78,6 @@ class Route
             throw new \LogicException('Failed to resolve action');
         }
 
-        return $controller->{$method}($request);
+        return call_user_func_array([$controller, $method], array_merge(['request' => $request], $params));
     }
 }

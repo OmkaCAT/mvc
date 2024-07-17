@@ -11,6 +11,8 @@ class UriValidator implements ValidatorInterface
     {
         $path = rtrim($request->getPath(), '/') ?: '/';
 
-        return $route->getUri() === $path;
+        $pattern = preg_replace('/\{([a-zA-Z0-9_]+)}/', '(?P<\1>[a-zA-Z0-9_]+)', $route->getUri());
+
+        return preg_match('#^' . $pattern . '$#', $path);
     }
 }
